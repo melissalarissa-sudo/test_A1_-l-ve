@@ -1,0 +1,1213 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pedro &mdash; R&eacute;vision Examen Final</title>
+<style>
+:root{
+  --exam:#1E3A5F;--exam-lt:#EFF6FF;
+  --bleu:#1D4ED8;--bleu-lt:#DBEAFE;--bleu-md:#BFDBFE;
+  --vert:#059669;--vert-lt:#D1FAE5;--vert-md:#6EE7B7;
+  --orange:#D97706;--orange-lt:#FEF3C7;--orange-md:#FDE68A;
+  --rouge:#DC2626;--rouge-lt:#FEE2E2;--rouge-md:#FCA5A5;
+  --violet:#7C3AED;--violet-lt:#EDE9FE;--violet-md:#C4B5FD;
+  --rose:#BE185D;--rose-lt:#FCE7F3;--rose-md:#F9A8D4;
+  --gris:#F8FAFC;--gris-b:#E2E8F0;--gris-m:#94A3B8;
+  --noir:#0F172A;--blanc:#FFF
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:#E2E8F0;color:var(--noir)}
+
+/* ---- HEADER ---- */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  background:var(--exam);color:white;
+  display:flex;align-items:center;gap:8px;
+  padding:0 14px;height:52px;box-shadow:0 3px 12px rgba(0,0,0,.35)
+}
+.brand{font-weight:800;font-size:.93rem;white-space:nowrap;margin-right:4px}
+nav{display:flex;gap:3px;overflow-x:auto}
+nav button{
+  background:rgba(255,255,255,.12);border:none;color:white;
+  padding:6px 10px;border-radius:6px;cursor:pointer;
+  font-size:.79rem;font-weight:600;white-space:nowrap;transition:background .15s
+}
+nav button.on,nav button:hover{background:rgba(255,255,255,.3)}
+.pill{
+  margin-left:auto;background:#FEF3C7;color:var(--exam);
+  font-weight:800;padding:5px 12px;border-radius:20px;
+  font-size:.87rem;white-space:nowrap
+}
+
+/* ---- LAYOUT ---- */
+main{margin-top:52px;padding:16px;max-width:860px;margin-left:auto;margin-right:auto}
+.sec{display:none}.sec.on{display:block}
+
+/* ---- CARDS ---- */
+.card{
+  background:white;border-radius:12px;padding:16px 18px;
+  margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.08);
+  border-left:4px solid var(--exam)
+}
+.card.bleu{border-color:var(--bleu)}.card.vert{border-color:var(--vert)}
+.card.orange{border-color:var(--orange)}.card.rouge{border-color:var(--rouge)}
+.card.violet{border-color:var(--violet)}.card.rose{border-color:var(--rose)}
+.card h2{font-size:1rem;margin-bottom:8px}
+.card h3{font-size:.88rem;color:var(--bleu);margin:10px 0 5px}
+
+/* ---- INFO BOXES ---- */
+.ib{padding:9px 13px;border-radius:8px;font-size:.88rem;margin-bottom:8px;line-height:1.6}
+.ib.bleu{background:var(--bleu-lt);border-left:3px solid var(--bleu)}
+.ib.vert{background:var(--vert-lt);border-left:3px solid var(--vert)}
+.ib.orange{background:var(--orange-lt);border-left:3px solid var(--orange)}
+.ib.rouge{background:var(--rouge-lt);border-left:3px solid var(--rouge)}
+.ib.violet{background:var(--violet-lt);border-left:3px solid var(--violet)}
+.ib.rose{background:var(--rose-lt);border-left:3px solid var(--rose)}
+
+/* ---- TABLES ---- */
+.rt{width:100%;border-collapse:collapse;font-size:.83rem;margin-bottom:10px}
+.rt th{background:var(--exam);color:white;padding:7px 9px;text-align:left}
+.rt td{padding:6px 9px;border-bottom:1px solid var(--gris-b)}
+.rt tr:nth-child(even) td{background:var(--gris)}
+.ok{color:var(--vert);font-weight:700}
+.bad{color:var(--rouge);font-weight:700}
+
+/* ---- BUTTONS ---- */
+.btn{
+  border:none;border-radius:8px;padding:8px 14px;cursor:pointer;
+  font-size:.84rem;font-weight:700;transition:opacity .15s
+}
+.btn:hover{opacity:.82}
+.b-exam{background:var(--exam);color:white}
+.b-bleu{background:var(--bleu);color:white}
+.b-vert{background:var(--vert);color:white}
+.b-orange{background:var(--orange);color:white}
+.b-violet{background:var(--violet);color:white}
+.b-rose{background:var(--rose);color:white}
+.b-gris{background:var(--gris-b);color:var(--noir)}
+
+/* ---- DICT&Eacute;E ---- */
+.dctrl{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:8px}
+.pbar{height:5px;background:var(--gris-b);border-radius:3px;overflow:hidden;margin-bottom:5px}
+.pfill{height:100%;background:var(--vert);border-radius:3px;transition:width .1s linear}
+.plbl{font-size:.78rem;color:var(--gris-m);margin-bottom:5px}
+textarea{
+  width:100%;min-height:110px;border:2px solid var(--gris-b);
+  border-radius:8px;padding:10px;font-size:.95rem;font-family:inherit;
+  resize:vertical;line-height:1.8
+}
+textarea:focus{outline:none;border-color:var(--bleu)}
+.corr-box{
+  background:var(--vert-lt);border:1.5px solid var(--vert);
+  border-radius:8px;padding:11px;margin-top:9px;
+  font-size:.88rem;line-height:1.7
+}
+
+/* ---- QCM ---- */
+.qw{
+  background:white;border-radius:10px;padding:11px 13px;
+  margin-bottom:10px;border:1.5px solid var(--gris-b)
+}
+.qh{display:flex;align-items:flex-start;gap:9px;margin-bottom:7px}
+.qn{
+  background:var(--exam);color:white;font-weight:800;
+  min-width:24px;height:24px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.78rem;flex-shrink:0
+}
+.qt{font-size:.92rem;font-weight:600;flex:1;padding-top:1px}
+.opts{display:flex;flex-wrap:wrap;gap:6px}
+.opt{
+  border:2px solid var(--gris-b);border-radius:7px;
+  padding:6px 12px;cursor:pointer;background:white;font-size:.85rem;transition:all .15s
+}
+.opt:hover{border-color:var(--bleu);background:var(--bleu-lt)}
+.opt.correct{background:var(--vert-lt);border-color:var(--vert);color:var(--vert);font-weight:700}
+.opt.wrong{background:var(--rouge-lt);border-color:var(--rouge);color:var(--rouge)}
+.opt[disabled]{cursor:not-allowed}
+/* Feedback: hidden by default, revealed after answer */
+.fb{font-size:.83rem;padding:5px 9px;border-radius:5px;margin-top:5px;display:none}
+.fb.show-ok{background:var(--vert-lt);color:var(--vert);display:block}
+.fb.show-err{background:var(--rouge-lt);color:var(--rouge);display:block}
+
+/* ---- FILL-IN ---- */
+.frow{
+  display:flex;align-items:center;gap:7px;margin-bottom:7px;
+  padding:7px 10px;background:var(--gris);border-radius:8px
+}
+.finp{
+  border:2px solid var(--gris-b);border-radius:6px;
+  padding:5px 9px;font-size:.88rem;flex:1
+}
+.finp:focus{outline:none;border-color:var(--bleu)}
+.finp.inp-ok{border-color:var(--vert);background:var(--vert-lt);color:var(--vert);font-weight:700}
+.finp.inp-bad{border-color:var(--rouge);background:var(--rouge-lt)}
+.fbtn{
+  border:none;border-radius:6px;padding:6px 12px;cursor:pointer;
+  background:var(--bleu);color:white;font-weight:700;font-size:.84rem
+}
+.fbtn:hover{opacity:.85}
+
+/* ---- VF ---- */
+.vfr{
+  display:flex;align-items:center;gap:9px;padding:7px 10px;
+  background:var(--gris);border-radius:8px;margin-bottom:7px
+}
+.vft{flex:1;font-size:.88rem}
+.vfb{
+  border:2px solid var(--gris-b);border-radius:6px;
+  padding:5px 12px;cursor:pointer;font-size:.83rem;font-weight:700;background:white
+}
+.vfb:hover.v{background:var(--vert-lt);border-color:var(--vert)}
+.vfb:hover.f{background:var(--rouge-lt);border-color:var(--rouge)}
+.vfb.sel-v{background:var(--vert-lt);border-color:var(--vert);color:var(--vert)}
+.vfb.sel-f{background:var(--rouge-lt);border-color:var(--rouge);color:var(--rouge)}
+/* VF explanation: hidden until answered */
+.vfexp{font-size:.78rem;color:var(--gris-m);display:none;margin-left:6px}
+
+/* ---- SCORE RING ---- */
+.sw{
+  background:white;border-radius:11px;padding:11px 14px;margin-bottom:12px;
+  display:flex;align-items:center;gap:11px;box-shadow:0 1px 4px rgba(0,0,0,.07)
+}
+.ring{
+  width:58px;height:58px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.93rem;font-weight:800;
+  background:conic-gradient(var(--vert) 0%,var(--gris-b) 0%);transition:all .5s
+}
+.ring span{
+  background:white;width:44px;height:44px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center
+}
+.si h3{font-size:.92rem;margin-bottom:3px}
+.si p{font-size:.8rem;color:var(--gris-m)}
+
+/* ---- R&Eacute;SULTATS ---- */
+.rr{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 13px;border-radius:8px;margin-bottom:7px;background:var(--gris)
+}
+.rr.tot{background:var(--exam);color:white;border-radius:10px;padding:12px 14px}
+.rl{font-weight:600;font-size:.9rem}
+.rs{font-weight:800;font-size:.95rem}
+.pb2{height:5px;background:var(--gris-b);border-radius:3px;overflow:hidden;flex:1;margin:0 10px}
+.pf2{height:100%;border-radius:3px}
+
+/* ---- DIALOGUE ---- */
+.dl{font-size:.85rem;line-height:1.9;margin-bottom:2px}
+
+/* ---- ORAL ---- */
+.osc{
+  background:white;border-radius:10px;padding:13px 15px;
+  margin-bottom:12px;border:2px solid var(--gris-b)
+}
+.sbadge{
+  display:inline-block;background:var(--rose-lt);color:var(--rose);
+  font-weight:700;font-size:.78rem;padding:3px 9px;border-radius:20px;margin-bottom:7px
+}
+.rbtn{
+  display:inline-flex;align-items:center;gap:6px;padding:8px 14px;
+  border-radius:8px;border:none;cursor:pointer;
+  font-size:.85rem;font-weight:700;background:var(--rouge);color:white;transition:all .15s
+}
+.rbtn.rec{background:#7f1d1d;animation:pulse 1s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.rdot{width:9px;height:9px;border-radius:50%;background:white}
+
+/* ---- ORAL PREP NOTE ---- */
+.prep-note{
+  background:var(--gris);border:1px solid var(--gris-b);
+  border-radius:8px;padding:10px 12px;margin:8px 0;font-size:.85rem;color:var(--gris-m)
+}
+
+@media(max-width:560px){nav button{padding:5px 7px;font-size:.72rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">&#128218; Pedro &mdash; Examen Final</div>
+  <nav>
+    <button class="on" onclick="showTab('regles',this)">R&egrave;gles</button>
+    <button onclick="showTab('dictee',this)">Dict&eacute;e</button>
+    <button onclick="showTab('corale',this)">C.&nbsp;Orale</button>
+    <button onclick="showTab('cecrite',this)">C.&nbsp;&Eacute;crite</button>
+    <button onclick="showTab('oral',this)">Oral</button>
+    <button onclick="showTab('score',this)">Score</button>
+  </nav>
+  <div class="pill" id="pill">0 / 20</div>
+</header>
+
+<main>
+
+<!-- ======================== R&Egrave;GLES ======================== -->
+<div class="sec on" id="s-regles">
+
+  <div class="card">
+    <h2>&#128203; Structure &mdash; 4 &eacute;preuves, 1h, sur 20</h2>
+    <table class="rt">
+      <tr><th>&Eacute;preuve</th><th>Dur&eacute;e</th><th>Pts</th><th>Ce qui est &eacute;valu&eacute;</th></tr>
+      <tr><td><b>1 &mdash; Dict&eacute;e</b></td><td>15 min</td>
+          <td style="color:var(--bleu);font-weight:700">/4</td>
+          <td>Articles, H muet/aspir&eacute;, nasales, pronominaux, heures</td></tr>
+      <tr><td><b>2 &mdash; Comp. orale</b></td><td>15 min</td>
+          <td style="color:var(--orange);font-weight:700">/4</td>
+          <td>Dialogue au restaurant &mdash; 4 questions</td></tr>
+      <tr><td><b>3 &mdash; Comp. &eacute;crite</b></td><td>15 min</td>
+          <td style="color:var(--vert);font-weight:700">/6</td>
+          <td>Texte &mdash; 4 V/F + 4 questions ouvertes</td></tr>
+      <tr><td><b>4 &mdash; Expr. orale</b></td><td>15 min</td>
+          <td style="color:var(--rose);font-weight:700">/6</td>
+          <td>Jeu de r&ocirc;le /2 &bull; Q/R libres /2 &bull; Situation /1 &bull; Monologue /1</td></tr>
+    </table>
+  </div>
+
+  <div class="card rouge">
+    <h2>H muet vs H aspir&eacute; &mdash; par c&oelig;ur !</h2>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div class="ib vert">
+        <b>H MUET &rarr; l&rsquo;</b><br>
+        l&rsquo;homme &bull; l&rsquo;h&ocirc;tel &bull; l&rsquo;heure<br>
+        l&rsquo;histoire &bull; l&rsquo;h&ocirc;pital &bull; l&rsquo;hiver<br>
+        l&rsquo;habitude &bull; l&rsquo;huile<br>
+        <small style="color:#374151">&rarr; &eacute;lision obligatoire</small>
+      </div>
+      <div class="ib rouge">
+        <b>H ASPIR&Eacute; &rarr; le / la</b><br>
+        le hibou &bull; le hall &bull; le haricot<br>
+        le hasard &bull; la honte &bull; la harpe<br>
+        le homard &bull; le hockey<br>
+        <small style="color:#374151">&rarr; pas d&rsquo;&eacute;lision</small>
+      </div>
+    </div>
+    <div class="ib orange" style="margin-top:8px">
+      <b>Pi&egrave;ge :</b> <b>le h&eacute;ros</b> (H aspir&eacute;) MAIS <b>l&rsquo;h&eacute;ro&iuml;ne</b> (H muet) &mdash; m&ecirc;me famille !
+    </div>
+  </div>
+
+  <div class="card bleu">
+    <h2>Articles</h2>
+    <table class="rt">
+      <tr><th>Type</th><th>Formes</th><th>Exemple</th><th>Pi&egrave;ge</th></tr>
+      <tr><td>D&eacute;fini</td><td>le / la / <b>l&rsquo;</b> / les</td>
+          <td>l&rsquo;homme, le hibou</td>
+          <td>le h&ocirc;pital &rarr; <span class="ok">l&rsquo;h&ocirc;pital</span></td></tr>
+      <tr><td>Ind&eacute;fini</td><td>un / une / des</td><td>une baguette</td><td>&mdash;</td></tr>
+      <tr><td>Partitif</td><td>du / de la / de l&rsquo;</td>
+          <td><b>du</b> fromage</td><td>&ldquo;le fromage&rdquo; &#10007;</td></tr>
+      <tr><td class="bad">Apr&egrave;s n&eacute;gation</td><td class="bad">de / d&rsquo;</td>
+          <td class="bad">pas <b>de</b> voiture</td>
+          <td class="bad">&ldquo;pas un / pas des&rdquo; &#10007;</td></tr>
+    </table>
+  </div>
+
+  <div class="card violet">
+    <h2>Voyelles nasales</h2>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;margin-bottom:8px">
+      <div class="ib violet" style="flex:1;min-width:130px">
+        <b>[&atilde;]</b> &rarr; an, am, en, em<br><i>enfant, chambre, temps</i>
+      </div>
+      <div class="ib violet" style="flex:1;min-width:130px">
+        <b>[&epsilon;&#771;]</b> &rarr; in, ain, un<br><i>pain, main, matin, brun</i>
+      </div>
+      <div class="ib violet" style="flex:1;min-width:130px">
+        <b>[&otilde;]</b> &rarr; on, om<br><i>pont, maison, bombe</i>
+      </div>
+    </div>
+    <div class="ib rouge">
+      <b>Pas nasal si&nbsp;:</b> &ldquo;bonne&rdquo; (double n &rarr; [o])
+      &bull; &ldquo;fine&rdquo; (voyelle suivante &rarr; [i])
+    </div>
+  </div>
+
+  <div class="card vert">
+    <h2>Verbes pronominaux + &eacute;lisions</h2>
+    <table class="rt">
+      <tr><th></th><th>se lever</th><th style="background:var(--violet)">s&rsquo;habiller &#9888;</th><th>se coucher</th></tr>
+      <tr><td><b>Je</b></td><td>me l&egrave;ve</td>
+          <td class="bad"><b>m&rsquo;habille</b> &larr; &eacute;lision !</td>
+          <td>me couche</td></tr>
+      <tr><td><b>Tu</b></td><td>te l&egrave;ves</td>
+          <td class="bad"><b>t&rsquo;habilles</b></td>
+          <td>te couches</td></tr>
+      <tr><td><b>Il</b></td><td>se l&egrave;ve</td>
+          <td class="bad"><b>s&rsquo;habille</b></td>
+          <td>se couche</td></tr>
+    </table>
+    <div class="ib rouge">
+      m&rsquo; / t&rsquo; / s&rsquo; devant voyelle = OBLIGATOIRE &mdash; &ldquo;me habille&rdquo; &#10007;
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>Heures, dates, saisons</h2>
+    <table class="rt">
+      <tr><th>Cas</th><th>Correct &#10003;</th><th>Erreur &#10007;</th></tr>
+      <tr><td>7h45</td>
+          <td class="ok">huit heures moins <b>le</b> quart</td>
+          <td class="bad">&ldquo;moins quart&rdquo; sans &ldquo;le&rdquo;</td></tr>
+      <tr><td>12h30</td>
+          <td class="ok">midi et <b>demi</b></td>
+          <td class="bad">&ldquo;midi et demie&rdquo;</td></tr>
+      <tr><td>1<sup>er</sup> du mois</td>
+          <td class="ok">le <b>premier</b> mars</td>
+          <td class="bad">&ldquo;le un mars&rdquo; &#10007;</td></tr>
+      <tr><td>Jours / mois</td>
+          <td class="ok">lundi, janvier (minuscule)</td>
+          <td class="bad">Lundi, Janvier &#10007;</td></tr>
+      <tr><td>Saisons &#9888;</td>
+          <td class="ok"><b>au</b> printemps / <b>en</b> &eacute;t&eacute; / automne / hiver</td>
+          <td class="bad">&ldquo;en printemps&rdquo; &#10007;</td></tr>
+    </table>
+  </div>
+
+</div><!-- /regles -->
+
+<!-- ======================== DICT&Eacute;E ======================== -->
+<div class="sec" id="s-dictee">
+  <div class="card bleu">
+    <h2>&#9999; Dict&eacute;e d&rsquo;entra&icirc;nement &mdash; /4 pts</h2>
+    <div class="ib bleu">
+      &Eacute;coute, &eacute;cris, puis clique sur <b>&laquo;&nbsp;Corriger&nbsp;&raquo;</b>
+      pour voir le corrig&eacute; et ton score.
+    </div>
+    <div class="dctrl">
+      <button class="btn b-exam" id="btn-normal" onclick="dPlay(.78)">&#128266; Normal</button>
+      <button class="btn b-bleu" id="btn-lent"   onclick="dPlay(.45)">&#128034; Lent</button>
+      <button class="btn b-violet"               onclick="dPhrase()">&#9654; Phrase suivante</button>
+    </div>
+    <div class="plbl" id="dlbl"></div>
+    <div class="pbar"><div class="pfill" id="dfill" style="width:0%"></div></div>
+
+    <textarea id="dta" placeholder="&Eacute;cris ici la dict&eacute;e..."></textarea>
+
+    <div style="margin-top:10px;display:flex;gap:8px">
+      <button class="btn b-vert" onclick="dEval()">&#10003; Corriger et voir mon score</button>
+      <button class="btn b-gris" onclick="dReset()">Recommencer</button>
+    </div>
+
+    <!-- Visible ONLY after dEval() -->
+    <div id="d-score-area" style="display:none;margin-top:12px">
+      <div id="d-score-box"
+           style="padding:11px 14px;border-radius:8px;background:var(--exam-lt);font-size:.9rem;margin-bottom:10px">
+      </div>
+      <div class="corr-box" id="dcorr"></div>
+    </div>
+  </div>
+
+  <div class="card orange">
+    <h2>Points &agrave; surveiller dans cette dict&eacute;e</h2>
+    <table class="rt" id="dpts"></table>
+  </div>
+</div>
+
+<!-- ======================== COMP. ORALE ======================== -->
+<div class="sec" id="s-corale">
+  <div class="card orange">
+    <h2>&#127911; Compr&eacute;hension orale &mdash; /4 pts</h2>
+    <div class="ib orange">
+      &Eacute;coute le dialogue <b>2 fois</b>, prends des notes si besoin,
+      puis r&eacute;ponds aux questions. Le corrig&eacute; appara&icirc;t apr&egrave;s chaque r&eacute;ponse.
+    </div>
+    <div class="dctrl">
+      <button class="btn b-orange" onclick="coPlay(.82)">&#128266; Normal</button>
+      <button class="btn b-gris"   onclick="coPlay(.55)">&#128034; Lent</button>
+      <button class="btn b-gris" id="dshowbtn" onclick="toggleDial()">&#128065; Voir le dialogue</button>
+    </div>
+    <div id="co-dial"
+         style="display:none;background:var(--gris);border-radius:8px;
+                padding:11px;margin:9px 0;font-size:.84rem;line-height:2">
+    </div>
+    <div class="prep-note">Zone de notes pendant l&rsquo;&eacute;coute&nbsp;:</div>
+    <textarea id="co-notes" style="min-height:50px;margin-bottom:0"
+              placeholder="Mots-cl&eacute;s..."></textarea>
+  </div>
+
+  <div class="card orange">
+    <h2>Questions (1 pt chaque)</h2>
+    <div class="sw">
+      <div class="ring" id="co-ring"><span id="co-rt">0%</span></div>
+      <div class="si">
+        <h3 id="co-sc">0 / 4</h3>
+        <p id="co-sub">R&eacute;ponds aux questions</p>
+      </div>
+      <div style="margin-left:auto">
+        <button class="btn b-gris" onclick="location.reload()">Reset</button>
+      </div>
+    </div>
+    <div id="co-qs"></div>
+  </div>
+</div>
+
+<!-- ======================== COMP. &Eacute;CRITE ======================== -->
+<div class="sec" id="s-cecrite">
+  <div class="card vert">
+    <h2>&#128218; Compr&eacute;hension &eacute;crite &mdash; /6 pts</h2>
+    <div class="ib vert">
+      Lis le texte. Pour les V/F, cite une phrase du texte (obligatoire&nbsp;!).
+      Le corrig&eacute; s&rsquo;affiche apr&egrave;s chaque r&eacute;ponse valid&eacute;e.
+    </div>
+
+    <div id="ce-txt"
+         style="background:var(--vert-lt);border-radius:8px;padding:13px;
+                font-size:.85rem;line-height:1.85;border:1px solid var(--vert-md);
+                margin-bottom:14px">
+    </div>
+
+    <div class="sw">
+      <div class="ring" id="ce-ring"><span id="ce-rt">0%</span></div>
+      <div class="si">
+        <h3 id="ce-sc">0 / 6</h3>
+        <p id="ce-sub">R&eacute;ponds aux questions</p>
+      </div>
+      <div style="margin-left:auto">
+        <button class="btn b-gris" onclick="location.reload()">Reset</button>
+      </div>
+    </div>
+
+    <h3>A &mdash; Vrai ou Faux&nbsp;? &nbsp;(2 pts &mdash; 0,5 pt chaque)</h3>
+    <p style="font-size:.83rem;color:var(--gris-m);margin-bottom:8px">
+      Clique sur VRAI ou FAUX &rarr; le corrig&eacute; s&rsquo;affiche imm&eacute;diatement.
+    </p>
+    <div id="ce-vf"></div>
+
+    <h3 style="margin-top:14px">B &mdash; Questions ouvertes (4 pts &mdash; 1 pt chaque)</h3>
+    <p style="font-size:.83rem;color:var(--gris-m);margin-bottom:8px">
+      Tape ta r&eacute;ponse et clique sur <b>V&eacute;rifier</b>.
+    </p>
+    <div id="ce-qs"></div>
+  </div>
+</div>
+
+<!-- ======================== ORAL ======================== -->
+<div class="sec" id="s-oral">
+  <div class="card rose">
+    <h2>&#127911; Expression orale &mdash; /6 pts</h2>
+    <div class="ib rose">
+      4 sc&eacute;narios &mdash; 1&nbsp;min de pr&eacute;paration chacun.
+      Parle sans support &eacute;crit&nbsp;!
+    </div>
+    <div class="ib violet" style="margin-top:0">
+      <b>Bar&egrave;me&nbsp;:</b>
+      Sc. A&nbsp;/2 &bull; Sc. B&nbsp;/2 &bull; Sc. C&nbsp;/1 &bull; Sc. D&nbsp;/1
+    </div>
+  </div>
+  <div id="oral-cont"></div>
+</div>
+
+<!-- ======================== SCORE ======================== -->
+<div class="sec" id="s-score">
+  <div class="card">
+    <h2>&#128202; Mes r&eacute;sultats</h2>
+    <div id="score-cont"></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DICTEE_TTS =
+  "Le samedi matin, je me r\u00e9veille \u00e0 huit heures moins le quart. " +
+  "Je me l\u00e8ve, je me douche et je m'habille tranquillement. " +
+  "Je prends le petit-d\u00e9jeuner\u00a0: du caf\u00e9, une tartine beurr\u00e9e et un jus d'orange. " +
+  "Ensuite, je prends le m\u00e9tro ligne quatre pour aller au march\u00e9. " +
+  "Dans le hall de la station, j'ai rencontr\u00e9 un homme sympathique. " +
+  "Au march\u00e9, j'ach\u00e8te du fromage, une baguette et des haricots verts. " +
+  "L'apr\u00e8s-midi, il fait beau \u2014 en automne, c'est rare \u00e0 Paris\u00a0!";
+
+const DICTEE_CORR =
+  "Le samedi matin, je me r\u00e9veille \u00e0 huit heures moins le quart. " +
+  "Je me l\u00e8ve, je me douche et je m\u2019habille tranquillement. " +
+  "Je prends le petit-d\u00e9jeuner\u00a0: du caf\u00e9, une tartine beurr\u00e9e et un jus d\u2019orange. " +
+  "Ensuite, je prends le m\u00e9tro ligne quatre pour aller au march\u00e9. " +
+  "Dans le hall de la station, j\u2019ai rencontr\u00e9 un homme sympathique. " +
+  "Au march\u00e9, j\u2019ach\u00e8te du fromage, une baguette et des haricots verts. " +
+  "L\u2019apr\u00e8s-midi, il fait beau \u2014 en automne, c\u2019est rare \u00e0 Paris\u00a0!";
+
+// For diff: normalised version
+const DICTEE_NORM = "le samedi matin je me reveille a huit heures moins le quart " +
+  "je me leve je me douche et je m habille tranquillement " +
+  "je prends le petit dejeuner du cafe une tartine beurree et un jus d orange " +
+  "ensuite je prends le metro ligne quatre pour aller au marche " +
+  "dans le hall de la station j ai rencontre un homme sympathique " +
+  "au marche j achete du fromage une baguette et des haricots verts " +
+  "l apres midi il fait beau en automne c est rare a paris";
+
+const DICTEE_PHRASES = [
+  "Le samedi matin, je me r\u00e9veille \u00e0 huit heures moins le quart.",
+  "Je me l\u00e8ve, je me douche et je m'habille tranquillement.",
+  "Je prends le petit-d\u00e9jeuner\u00a0: du caf\u00e9, une tartine beurr\u00e9e et un jus d'orange.",
+  "Ensuite, je prends le m\u00e9tro ligne quatre pour aller au march\u00e9.",
+  "Dans le hall de la station, j'ai rencontr\u00e9 un homme sympathique.",
+  "Au march\u00e9, j'ach\u00e8te du fromage, une baguette et des haricots verts.",
+  "L'apr\u00e8s-midi, il fait beau \u2014 en automne, c'est rare \u00e0 Paris\u00a0!"
+];
+
+const DPTS = [
+  ["samedi matin",               "samedi (minuscule)",                          "Samedi avec majuscule"],
+  ["je me r\u00e9veille",         "me \u2014 pas d\u2019\u00e9lision (consonne r)", "j\u2019me r\u00e9veille incorrect"],
+  ["huit heures moins le quart", "\u00ab\u00a0le\u00a0\u00bb quart obligatoire", "\u00ab\u00a0moins quart\u00a0\u00bb sans \u00ab\u00a0le\u00a0\u00bb"],
+  ["je m\u2019habille",           "m\u2019habille \u2014 \u00e9lision H muet",   "\u00ab\u00a0me habille\u00a0\u00bb interdit"],
+  ["du caf\u00e9 / une tartine / un jus", "3 articles distincts",               "\u00ab\u00a0le caf\u00e9\u00a0\u00bb ou \u00ab\u00a0un fromage\u00a0\u00bb"],
+  ["le hall",                    "H aspir\u00e9 \u2192 LE hall",                "\u00ab\u00a0l\u2019hall\u00a0\u00bb faux"],
+  ["un homme",                   "H muet \u2192 un homme",                      "v\u00e9rifier l\u2019orthographe"],
+  ["du fromage",                 "partitif \u2014 mati\u00e8re non d\u00e9nombrable", "\u00ab\u00a0le fromage\u00a0\u00bb ou \u00ab\u00a0un fromage\u00a0\u00bb"],
+  ["des haricots",               "H aspir\u00e9 \u2192 DES, pas de liaison",    "liaison des[z]haricots fausse"],
+  ["L\u2019apr\u00e8s-midi",      "\u00e9lision + trait d\u2019union",           "\u00ab\u00a0Le apr\u00e8s-midi\u00a0\u00bb ou sans trait"],
+  ["en automne",                 "EN + saison (sauf au printemps)",             "\u00ab\u00a0au automne\u00a0\u00bb faux"]
+];
+
+const CO_DIAL = [
+  {q:"Serveur", t:"Bonsoir\u00a0! Vous avez une r\u00e9servation\u00a0?",                                      m:false},
+  {q:"Pedro",   t:"Non, nous n\u2019avons pas r\u00e9serv\u00e9. Vous avez une table pour deux\u00a0?",        m:true},
+  {q:"Serveur", t:"Oui, bien s\u00fbr. Suivez-moi. Voil\u00e0 une table pr\u00e8s de la fen\u00eatre.",       m:false},
+  {q:"Pedro",   t:"Parfait. Excusez-moi, c\u2019est quoi le plat du jour\u00a0?",                              m:true},
+  {q:"Serveur", t:"C\u2019est un saumon grill\u00e9 avec des l\u00e9gumes de saison.",                         m:false},
+  {q:"Pedro",   t:"Et comme entr\u00e9e, vous avez de la soupe \u00e0 l\u2019oignon\u00a0?",                  m:true},
+  {q:"Serveur", t:"Oui, bien s\u00fbr. Et \u00e0 boire\u00a0?",                                               m:false},
+  {q:"Pedro",   t:"Une carafe d\u2019eau et un verre de vin rouge, s\u2019il vous pla\u00eet.",               m:true},
+  {q:"Serveur", t:"Parfait. Je reviens dans quelques minutes.",                                                m:false},
+  {q:"Pedro",   t:"Merci. Je suis allergique aux noix \u2014 c\u2019est important.",                           m:true},
+  {q:"Serveur", t:"Pas de probl\u00e8me. Notre saumon ne contient pas de noix.",                              m:false},
+  {q:"Pedro",   t:"Bien. Le service est compris dans l\u2019addition\u00a0?",                                  m:true},
+  {q:"Serveur", t:"Oui, le service est compris. Bonne soir\u00e9e\u00a0!",                                    m:false}
+];
+
+// CO_QS : answers hidden until the user answers
+const CO_QS = [
+  {n:"1", q:"Pedro a-t-il r\u00e9serv\u00e9 une table\u00a0? R\u00e9ponds en une phrase.",
+   type:"open",
+   corr:["non","pas r\u00e9serv\u00e9","pas de r\u00e9servation"],
+   exp:"Non \u2014 \u00ab\u00a0nous n\u2019avons pas r\u00e9serv\u00e9\u00a0\u00bb"},
+  {n:"2", q:"Quel est le plat du jour\u00a0?",
+   opts:["a) Steak frites","b) Saumon grill\u00e9 avec l\u00e9gumes","c) Soupe \u00e0 l\u2019oignon","d) Poulet r\u00f4ti"],
+   ok:1, exp:"\u00ab\u00a0un saumon grill\u00e9 avec des l\u00e9gumes de saison\u00a0\u00bb"},
+  {n:"3", q:"\u00c0 quoi Pedro est-il allergique\u00a0?",
+   opts:["a) Au gluten","b) Aux noix","c) Aux fruits de mer","d) Au lait"],
+   ok:1, exp:"\u00ab\u00a0je suis allergique aux noix\u00a0\u00bb"},
+  {n:"4", q:"Le service est-il inclus dans l\u2019addition\u00a0?",
+   opts:["a) Non","b) Seulement le midi","c) Oui","d) Il ne sait pas"],
+   ok:2, exp:"\u00ab\u00a0Oui, le service est compris\u00a0\u00bb"}
+];
+
+const CE_TXT =
+  "Chaque ann\u00e9e en France, deux p\u00e9riodes de soldes officielles permettent aux Fran\u00e7ais " +
+  "de faire de bonnes affaires. Les soldes d\u2019hiver commencent en janvier et les soldes " +
+  "d\u2019\u00e9t\u00e9 en juin ou juillet. Chaque p\u00e9riode dure environ quatre semaines, avec des " +
+  "r\u00e9ductions pouvant aller jusqu\u2019\u00e0 moins soixante-dix pour cent.\n\n" +
+  "Dans les grandes villes comme Paris, Lyon ou Marseille, les centres commerciaux " +
+  "sont pris d\u2019assaut d\u00e8s l\u2019ouverture. Les Fran\u00e7ais font souvent la queue devant " +
+  "les magasins avant m\u00eame qu\u2019ils n\u2019ouvrent leurs portes.\n\n" +
+  "Mais attention\u00a0: acheter pendant les soldes demande de la m\u00e9thode. " +
+  "Les experts conseillent de pr\u00e9parer une liste avant d\u2019y aller et de ne pas " +
+  "acheter quelque chose uniquement parce que c\u2019est moins cher. " +
+  "Un article inutile \u00e0 moins cinquante pour cent reste un article inutile\u00a0!";
+
+// Answers hidden until clicked
+const CE_VF = [
+  {n:"1.", s:"Il y a deux p\u00e9riodes de soldes officielles par an en France.", v:true,
+   exp:"\u00ab\u00a0deux p\u00e9riodes de soldes officielles\u00a0\u00bb"},
+  {n:"2.", s:"Les soldes d\u2019\u00e9t\u00e9 commencent toujours en mai.", v:false,
+   exp:"\u00ab\u00a0en juin ou juillet\u00a0\u00bb \u2014 pas en mai"},
+  {n:"3.", s:"Les Fran\u00e7ais font parfois la queue avant l\u2019ouverture.", v:true,
+   exp:"\u00ab\u00a0font souvent la queue avant m\u00eame qu\u2019ils n\u2019ouvrent\u00a0\u00bb"},
+  {n:"4.", s:"Les experts recommandent d\u2019acheter sans liste.", v:false,
+   exp:"\u00ab\u00a0Les experts conseillent de pr\u00e9parer une liste avant d\u2019y aller\u00a0\u00bb"}
+];
+
+// Answers hidden until submitted
+const CE_QS = [
+  {n:"5.", q:"Quelles villes fran\u00e7aises sont mentionn\u00e9es\u00a0? (au moins deux)",
+   corr:["paris","lyon","marseille"],
+   exp:"Paris, Lyon, Marseille"},
+  {n:"6.", q:"Quelles r\u00e9ductions maximales peut-on trouver pendant les soldes\u00a0?",
+   corr:["70","soixante-dix","soixante dix"],
+   exp:"Jusqu\u2019\u00e0 \u221270\u00a0% (moins soixante-dix pour cent)"},
+  {n:"7.", q:"Selon les experts, que faut-il pr\u00e9parer avant d\u2019aller aux soldes\u00a0?",
+   corr:["liste"],
+   exp:"Une liste (de ce qu\u2019on veut acheter)"},
+  {n:"8.", q:"Expliquez la derni\u00e8re phrase avec vos propres mots.",
+   corr:["inutile","ne sert","pas utile","pas besoin"],
+   exp:"Un objet inutile reste inutile m\u00eame achet\u00e9 moins cher \u2014 ne pas acheter par opportunisme"}
+];
+
+const ORAL_DATA = [
+  {
+    lettre:"A", titre:"Jeu de r\u00f4le \u2014 Au restaurant", pts:2, dur:"4 min",
+    consigne:"Joue le client. Le professeur joue le serveur. Tu dois\u00a0: demander une table pour 2 sans r\u00e9servation, demander le plat du jour, commander entr\u00e9e\u00a0+\u00a0plat\u00a0+\u00a0boisson, mentionner une allergie, demander si le service est compris, puis demander l\u2019addition.",
+    phrases:[
+      "Bonsoir, vous avez une table pour deux\u00a0?",
+      "C\u2019est quoi le plat du jour\u00a0?",
+      "Comme entr\u00e9e, je prends la soupe \u00e0 l\u2019oignon.",
+      "Je suis allergique aux noix.",
+      "Le service est compris\u00a0?",
+      "L\u2019addition, s\u2019il vous pla\u00eet\u00a0!"
+    ],
+    modele:"Bonsoir\u00a0! Nous n\u2019avons pas r\u00e9serv\u00e9. Vous avez une table pour deux\u00a0? Parfait. C\u2019est quoi le plat du jour\u00a0? Comme entr\u00e9e, la soupe \u00e0 l\u2019oignon. Et le saumon grill\u00e9 s\u2019il vous pla\u00eet. Une carafe d\u2019eau. Je suis allergique aux noix. Le service est compris\u00a0? L\u2019addition s\u2019il vous pla\u00eet\u00a0!"
+  },
+  {
+    lettre:"B", titre:"Questions-r\u00e9ponses libres", pts:2, dur:"4 min",
+    consigne:"Le professeur pose 4 questions parmi les 8 ci-dessous. R\u00e9ponds en phrases compl\u00e8tes, sans support \u00e9crit.",
+    questions:[
+      ["Quelle heure est-il\u00a0? (montrer 7h45)",
+       "Il est huit heures moins le quart."],
+      ["D\u00e9cris ta routine du matin en 3 phrases.",
+       "Je me r\u00e9veille\u2026 je me douche et je m\u2019habille\u2026 je prends le petit-d\u00e9jeuner\u2026"],
+      ["Article devant\u00a0: h\u00f4pital, hibou, histoire, hall\u00a0?",
+       "l\u2019h\u00f4pital (H muet) / le hibou (H aspir\u00e9) / l\u2019histoire (H muet) / le hall (H aspir\u00e9)"],
+      ["Tu vois quelqu\u2019un perdre connaissance. Que fais-tu\u00a0?",
+       "J\u2019appelle le 15 (SAMU). Je donne l\u2019adresse exacte. Je reste en ligne."],
+      ["Diff\u00e9rence entre \u00ab\u00a0la carte\u00a0\u00bb et \u00ab\u00a0le menu\u00a0\u00bb\u00a0?",
+       "La carte\u00a0= tous les plats. Le menu\u00a0= formule \u00e0 prix fixe."],
+      ["Cite 3 num\u00e9ros d\u2019urgence fran\u00e7ais.",
+       "15\u00a0= SAMU \u2022 17\u00a0= Police \u2022 18\u00a0= Pompiers."],
+      ["Conjugue \u00ab\u00a0s\u2019habiller\u00a0\u00bb \u00e0 je, tu, il.",
+       "Je m\u2019habille / tu t\u2019habilles / il s\u2019habille."],
+      ["Pr\u00e9position pour chaque saison.",
+       "AU printemps / EN \u00e9t\u00e9 / EN automne / EN hiver."]
+    ],
+    modele:"Il est huit heures moins le quart. Je me r\u00e9veille, me douche et m\u2019habille. L\u2019h\u00f4pital H muet, le hibou H aspir\u00e9. J\u2019appelle le 15. Je m\u2019habille, tu t\u2019habilles, il s\u2019habille. Au printemps, en \u00e9t\u00e9, en automne, en hiver."
+  },
+  {
+    lettre:"C", titre:"Description d\u2019une situation", pts:1, dur:"2 min",
+    consigne:"Le professeur d\u00e9crit une situation. Pedro r\u00e9agit \u00e0 l\u2019oral en utilisant le vocabulaire du cours. Situations possibles\u00a0: (1) accident dans la rue, (2) portefeuille perdu dans le m\u00e9tro, (3) chercher un mus\u00e9e \u00e0 Paris.",
+    situations:[
+      ["Situation 1 \u2014 Accident",
+       "Tu vois un cycliste tomber et ne plus bouger boulevard Haussmann.",
+       "Au secours\u00a0! J\u2019appelle le 15\u00a0! Boulevard Haussmann. Allo le 15\u00a0? Un homme est bless\u00e9, il ne bouge plus. Je reste sur place."],
+      ["Situation 2 \u2014 Objet perdu",
+       "Tu n\u2019as plus ton portefeuille dans le m\u00e9tro ligne 4.",
+       "J\u2019ai perdu mon portefeuille dans le m\u00e9tro\u00a0! J\u2019appelle le 3246 (RATP) ou je vais au bureau des objets trouv\u00e9s."],
+      ["Situation 3 \u2014 Chemin",
+       "Tu es Place de la R\u00e9publique et tu cherches le mus\u00e9e du Louvre.",
+       "Excusez-moi, je cherche le mus\u00e9e du Louvre. C\u2019est loin\u00a0? Je peux y aller \u00e0 pied\u00a0? Merci beaucoup\u00a0!"]
+    ],
+    modele:"Au secours\u00a0! Il y a eu un accident. J\u2019appelle le 15\u00a0! Boulevard Haussmann, num\u00e9ro 42. Allo le 15\u00a0? Un homme a perdu connaissance, il ne bouge plus. Je reste sur place, d\u2019accord."
+  },
+  {
+    lettre:"D", titre:"Monologue \u2014 Ma journ\u00e9e d\u2019hier", pts:1, dur:"2 min",
+    consigne:"4\u20136 phrases sur ta journ\u00e9e d\u2019hier. Utilise au minimum\u00a0: 2 verbes pronominaux, 1 heure en toutes lettres, 1 article partitif (du / de la), et le pass\u00e9 compos\u00e9.",
+    criteres:"2 pronominaux + 1 heure + 1 partitif + pass\u00e9 compos\u00e9",
+    modele:"Hier matin, je me suis r\u00e9veill\u00e9 \u00e0 sept heures et demie. Je me suis habill\u00e9 rapidement. J\u2019ai bu du caf\u00e9 et mang\u00e9 une tartine. J\u2019ai pris le m\u00e9tro ligne quatre. Le soir, je me suis couch\u00e9 t\u00f4t."
+  }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let piIdx = 0, dialOn = false;
+const coSt = {}, vfSt = {};
+let coPts = 0, vfPts = 0, ceQPts = 0;
+const SC = {dictee:0, co:0, ce:0, oral:0};
+const recrs = {}, rchks = {};
+
+// ============================================================
+// TABS
+// ============================================================
+function showTab(n, b) {
+  document.querySelectorAll('.sec').forEach(s => s.classList.remove('on'));
+  document.querySelectorAll('nav button').forEach(x => x.classList.remove('on'));
+  document.getElementById('s-' + n).classList.add('on');
+  b.classList.add('on');
+  if (n === 'score') renderScore();
+}
+
+// ============================================================
+// DICT&Eacute;E
+// ============================================================
+function dPlay(r) {
+  const u = new SpeechSynthesisUtterance(DICTEE_TTS);
+  u.lang = 'fr-FR'; u.rate = r;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+  animBar(DICTEE_TTS.length / 12 / r);
+}
+
+function dPhrase() {
+  piIdx = piIdx % DICTEE_PHRASES.length;
+  const u = new SpeechSynthesisUtterance(DICTEE_PHRASES[piIdx]);
+  u.lang = 'fr-FR'; u.rate = 0.58;
+  u.onend = () => piIdx++;
+  speechSynthesis.cancel();
+  speechSynthesis.speak(u);
+  document.getElementById('dlbl').textContent =
+    'Phrase ' + (piIdx + 1) + ' / ' + DICTEE_PHRASES.length;
+}
+
+function animBar(s) {
+  const fill = document.getElementById('dfill');
+  const lbl  = document.getElementById('dlbl');
+  const t0   = Date.now();
+  const iv   = setInterval(() => {
+    const e = (Date.now() - t0) / 1000;
+    const p = Math.min(100, e / s * 100);
+    fill.style.width = p + '%';
+    fill.style.background = p < 60 ? 'var(--vert)' : p < 90 ? 'var(--orange)' : 'var(--rouge)';
+    lbl.textContent = Math.max(0, Math.round(s - e)) + 's';
+    if (p >= 100) { clearInterval(iv); lbl.textContent = 'Fin de la dict\u00e9e'; }
+  }, 100);
+}
+
+function dEval() {
+  const raw = document.getElementById('dta').value;
+  if (!raw.trim()) { alert('\u00c9cris la dict\u00e9e avant de corriger\u00a0!'); return; }
+
+  // Normalize both for comparison
+  const norm = s => s.toLowerCase()
+    .normalize('NFD').replace(/[\u0300-\u036f]/g, '') // strip accents
+    .replace(/[.,!?;:\u2014\u2013\u2019\u2018\u00ab\u00bb\u00a0]/g, ' ')
+    .replace(/\s+/g, ' ').trim();
+
+  const ww = norm(raw).split(' ');
+  const cw = norm(DICTEE_NORM).split(' ');
+  let errors = 0;
+  cw.forEach((w, i) => { if (!ww[i] || ww[i] !== w) errors++; });
+
+  const note = Math.max(0, Math.min(4, +(4 - errors * 0.25).toFixed(2)));
+  SC.dictee = Math.round(note * 4) / 4;
+  updateTotal();
+
+  // Show score + corrig&eacute;
+  const area = document.getElementById('d-score-area');
+  area.style.display = 'block';
+
+  const box = document.getElementById('d-score-box');
+  const color = note >= 3 ? 'var(--vert)' : note >= 2 ? 'var(--orange)' : 'var(--rouge)';
+  box.innerHTML =
+    'Fautes estim\u00e9es\u00a0: <b>' + errors + '</b> &nbsp;|&nbsp; ' +
+    'Note\u00a0: <b style="color:' + color + '">' + note + ' / 4</b>' +
+    '<br><small style="color:var(--gris-m)">Estimation automatique \u2014 le professeur corrige officiellement.</small>';
+
+  const corr = document.getElementById('dcorr');
+  corr.innerHTML = '<b style="color:var(--vert)">Corrig\u00e9\u00a0:</b><br>' +
+    '<span style="line-height:1.8">' + DICTEE_CORR + '</span>';
+
+  // Disable textarea + audio after submit
+  document.getElementById('dta').disabled = true;
+}
+
+function dReset() {
+  document.getElementById('dta').value = '';
+  document.getElementById('dta').disabled = false;
+  document.getElementById('d-score-area').style.display = 'none';
+  document.getElementById('dfill').style.width = '0%';
+  document.getElementById('dlbl').textContent = '';
+  SC.dictee = 0;
+  updateTotal();
+  piIdx = 0;
+}
+
+function initDpts() {
+  const t = document.getElementById('dpts');
+  t.innerHTML =
+    '<tr><th>\u00c9l\u00e9ment</th><th>Forme correcte</th><th>Erreur type</th></tr>' +
+    DPTS.map(([e, c, r]) =>
+      '<tr><td><b>' + e + '</b></td>' +
+      '<td style="color:#065F46">' + c + '</td>' +
+      '<td style="color:var(--rouge)">' + r + '</td></tr>'
+    ).join('');
+}
+
+// ============================================================
+// COMP. ORALE
+// ============================================================
+function initCO() {
+  // Dialogue
+  const d = document.getElementById('co-dial');
+  d.innerHTML = CO_DIAL.map(({q, t, m}) =>
+    '<div class="dl"><b style="color:' + (m ? 'var(--bleu)' : 'var(--vert)') + '">' +
+    q + '\u00a0:</b> ' + t + '</div>'
+  ).join('');
+
+  // Questions
+  const c = document.getElementById('co-qs');
+  CO_QS.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'qw';
+
+    if (q.type === 'open') {
+      div.innerHTML =
+        '<div class="qh"><div class="qn">' + q.n + '</div>' +
+        '<div class="qt">' + q.q + '</div></div>' +
+        '<div class="frow">' +
+        '<input class="finp" id="co-open" placeholder="Ta r\u00e9ponse...">' +
+        '<button class="fbtn" id="co-open-btn" onclick="checkCOOpen()">V\u00e9rifier</button>' +
+        '</div>' +
+        '<div class="fb" id="fb-open"></div>';
+    } else {
+      const opts = q.opts.map((o, j) =>
+        '<button class="opt" id="coopt-' + i + '-' + j + '" ' +
+        'onclick="answCO(' + i + ',' + j + ')">' + o + '</button>'
+      ).join('');
+      div.innerHTML =
+        '<div class="qh"><div class="qn">' + q.n + '</div>' +
+        '<div class="qt">' + q.q + '</div></div>' +
+        '<div class="opts">' + opts + '</div>' +
+        '<div class="fb" id="fb-' + i + '"></div>';
+    }
+    c.appendChild(div);
+  });
+}
+
+function toggleDial() {
+  dialOn = !dialOn;
+  document.getElementById('co-dial').style.display = dialOn ? 'block' : 'none';
+  document.getElementById('dshowbtn').textContent =
+    dialOn ? '\ud83d\ude48 Masquer' : '\ud83d\udc41 Voir le dialogue';
+}
+
+function coPlay(r) {
+  const txt = CO_DIAL.map(({q, t}) => q + '\u00a0: ' + t).join(' ');
+  const u = new SpeechSynthesisUtterance(txt);
+  u.lang = 'fr-FR'; u.rate = r;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+function checkCOOpen() {
+  const inp = document.getElementById('co-open');
+  if (inp.disabled) return;
+  if (!inp.value.trim()) { inp.focus(); return; }
+  const val = inp.value.trim().toLowerCase();
+  const ok  = CO_QS[0].corr.some(c => val.includes(c));
+  inp.disabled = true;
+  document.getElementById('co-open-btn').disabled = true;
+  inp.classList.add(ok ? 'inp-ok' : 'inp-bad');
+  const fb = document.getElementById('fb-open');
+  fb.textContent = (ok ? '\u2705 ' : '\u274c ') + CO_QS[0].exp;
+  fb.className = 'fb ' + (ok ? 'show-ok' : 'show-err');
+  if (ok) coPts++;
+  coSt[0] = ok;
+  updateCOSc();
+}
+
+function answCO(qi, oi) {
+  if (coSt[qi] !== undefined) return;
+  const q  = CO_QS[qi];
+  const ok = oi === q.ok;
+  q.opts.forEach((_, j) => {
+    const b = document.getElementById('coopt-' + qi + '-' + j);
+    if (!b) return;
+    b.disabled = true;
+    if (j === q.ok)        b.classList.add('correct');
+    else if (j === oi && !ok) b.classList.add('wrong');
+  });
+  const fb = document.getElementById('fb-' + qi);
+  fb.textContent = (ok ? '\u2705 ' : '\u274c ') + q.exp;
+  fb.className = 'fb ' + (ok ? 'show-ok' : 'show-err');
+  coSt[qi] = ok;
+  if (ok) coPts++;
+  updateCOSc();
+}
+
+function updateCOSc() {
+  document.getElementById('co-sc').textContent = coPts + ' / 4';
+  const p = Math.round(coPts / 4 * 100);
+  updateRing('co-ring', 'co-rt', p);
+  const done = Object.keys(coSt).length;
+  document.getElementById('co-sub').textContent =
+    done === 4
+      ? (coPts >= 3 ? '\ud83c\udf89 Excellent\u00a0!' : coPts + ' / 4')
+      : (4 - done) + ' question(s) restante(s)';
+  SC.co = coPts;
+  updateTotal();
+}
+
+// ============================================================
+// COMP. &Eacute;CRITE
+// ============================================================
+function initCE() {
+  document.getElementById('ce-txt').innerHTML =
+    CE_TXT.split('\n\n').map(p => '<p style="margin-bottom:9px">' + p + '</p>').join('');
+
+  // VF
+  const vfc = document.getElementById('ce-vf');
+  CE_VF.forEach((it, i) => {
+    const d = document.createElement('div');
+    d.className = 'vfr';
+    d.innerHTML =
+      '<div class="vft"><b>' + it.n + '</b> ' + it.s + '</div>' +
+      '<div style="display:flex;gap:5px">' +
+      '<button class="vfb v" id="vfv-' + i + '" onclick="answVF(' + i + ',true)">VRAI</button>' +
+      '<button class="vfb f" id="vff-' + i + '" onclick="answVF(' + i + ',false)">FAUX</button>' +
+      '</div>' +
+      // Justification: hidden until answered
+      '<span class="vfexp" id="vfexp-' + i + '">' + it.exp + '</span>';
+    vfc.appendChild(d);
+  });
+
+  // Open Qs
+  const qc = document.getElementById('ce-qs');
+  CE_QS.forEach((q, i) => {
+    const d = document.createElement('div');
+    d.style.cssText = 'margin-bottom:10px;padding:8px 10px;background:var(--gris);border-radius:8px';
+    d.innerHTML =
+      '<div style="font-size:.88rem;font-weight:600;margin-bottom:6px">' + q.n + ' ' + q.q + '</div>' +
+      '<div class="frow">' +
+      '<input class="finp" id="ceq-' + i + '" placeholder="Ta r\u00e9ponse...">' +
+      '<button class="fbtn" id="ceqbtn-' + i + '" onclick="checkCEQ(' + i + ')">V\u00e9rifier</button>' +
+      '</div>' +
+      // Feedback + answer: hidden until submitted
+      '<div id="cefb-' + i + '" style="font-size:.85rem;margin-top:5px;display:none;' +
+      'padding:5px 9px;border-radius:5px"></div>';
+    qc.appendChild(d);
+  });
+}
+
+function answVF(i, val) {
+  if (vfSt[i] !== undefined) return;
+  vfSt[i] = val;
+  const it = CE_VF[i];
+  const ok = val === it.v;
+  const vb = document.getElementById('vfv-' + i);
+  const fb = document.getElementById('vff-' + i);
+  vb.disabled = true; fb.disabled = true;
+  (val ? vb : fb).classList.add(ok ? (val ? 'sel-v' : 'sel-f') : (val ? 'sel-f' : 'sel-v'));
+  // Show justification AFTER answering
+  document.getElementById('vfexp-' + i).style.display = 'inline';
+  if (ok) vfPts += 0.5;
+  updateCESc();
+}
+
+function checkCEQ(i) {
+  const inp = document.getElementById('ceq-' + i);
+  if (inp.disabled) return;
+  if (!inp.value.trim()) { inp.focus(); return; }
+  const val = inp.value.trim().toLowerCase();
+  const ok  = CE_QS[i].corr.some(c => val.includes(c));
+  inp.disabled = true;
+  document.getElementById('ceqbtn-' + i).disabled = true;
+  inp.classList.add(ok ? 'inp-ok' : 'inp-bad');
+  // Show answer AFTER submit
+  const fb = document.getElementById('cefb-' + i);
+  fb.style.display = 'block';
+  fb.style.background = ok ? 'var(--vert-lt)' : 'var(--rouge-lt)';
+  fb.style.color = ok ? 'var(--vert)' : 'var(--rouge)';
+  fb.textContent = (ok ? '\u2705 Correct \u2014 ' : '\u274c R\u00e9ponse attendue\u00a0: ') + CE_QS[i].exp;
+  if (ok) ceQPts++;
+  updateCESc();
+}
+
+function updateCESc() {
+  const tot = vfPts + ceQPts;
+  document.getElementById('ce-sc').textContent = tot.toFixed(1) + ' / 6';
+  const p = Math.round(tot / 6 * 100);
+  updateRing('ce-ring', 'ce-rt', p);
+  document.getElementById('ce-sub').textContent =
+    tot >= 5 ? '\ud83c\udf89 Excellent\u00a0!' : tot >= 4 ? '\ud83d\udc4d Bien\u00a0!' : '\ud83d\udcaa Continue\u00a0!';
+  SC.ce = tot;
+  updateTotal();
+}
+
+// ============================================================
+// ORAL
+// ============================================================
+function initOral() {
+  const c = document.getElementById('oral-cont');
+  ORAL_DATA.forEach(sc => {
+    const d = document.createElement('div');
+    d.className = 'osc';
+
+    let h =
+      '<div class="sbadge">Sc\u00e9nario ' + sc.lettre + ' \u2014 ' + sc.pts +
+      ' pt' + (sc.pts > 1 ? 's' : '') + ' | ' + sc.dur + '</div>' +
+      '<h3 style="color:var(--rose);margin-bottom:6px;font-size:1rem">' + sc.titre + '</h3>' +
+      '<div class="ib rose" style="margin-bottom:10px">' + sc.consigne + '</div>';
+
+    // Questions for B: hidden under details, reponses visible only on click
+    if (sc.questions) {
+      h += '<details style="margin-bottom:10px">' +
+        '<summary style="cursor:pointer;font-size:.85rem;color:var(--violet);font-weight:700">' +
+        'Questions possibles (le prof en choisit 4) \u25be</summary>' +
+        '<div style="margin-top:8px">' +
+        sc.questions.map(([q, r], i) =>
+          '<div style="font-size:.83rem;padding:7px 10px;background:var(--gris);border-radius:7px;margin-bottom:5px">' +
+          '<b>' + (i + 1) + '.</b> ' + q +
+          // Answer hidden until button clicked
+          '<div id="rep-' + sc.lettre + '-' + i + '" ' +
+          'style="display:none;color:#065F46;font-style:italic;margin-top:4px;font-size:.8rem">' +
+          '\u2192 ' + r + '</div>' +
+          '<button onclick="document.getElementById(\'rep-' + sc.lettre + '-' + i + '\').style.display=\'block\';this.style.display=\'none\'" ' +
+          'style="font-size:.74rem;border:none;background:var(--vert-lt);color:var(--vert);' +
+          'padding:2px 7px;border-radius:4px;cursor:pointer;margin-top:4px">Voir r\u00e9ponse</button>' +
+          '</div>'
+        ).join('') +
+        '</div></details>';
+    }
+
+    // Situations for C: hidden under details, reactions visible only on click
+    if (sc.situations) {
+      h += '<details style="margin-bottom:10px">' +
+        '<summary style="cursor:pointer;font-size:.85rem;color:var(--violet);font-weight:700">' +
+        'Situations possibles \u25be</summary>' +
+        '<div style="margin-top:8px">' +
+        sc.situations.map(([t, sit, rep]) => {
+          const id = 'sit-' + t.replace(/\s/g, '').replace(/\u2014/g, '');
+          return '<div style="padding:8px 10px;background:var(--gris);border-radius:8px;margin-bottom:7px">' +
+            '<b style="font-size:.85rem;color:var(--rose)">' + t + '</b><br>' +
+            '<span style="font-size:.83rem">' + sit + '</span>' +
+            // Reaction hidden until clicked
+            '<div id="' + id + '" style="display:none;margin-top:6px">' +
+            '<div class="ib vert" style="margin:0;font-size:.82rem">' + rep + '</div>' +
+            '</div>' +
+            '<button onclick="document.getElementById(\'' + id + '\').style.display=\'block\';this.style.display=\'none\'" ' +
+            'style="font-size:.74rem;border:none;background:var(--vert-lt);color:var(--vert);' +
+            'padding:2px 7px;border-radius:4px;cursor:pointer;margin-top:5px">Voir r\u00e9action mod\u00e8le</button>' +
+            '</div>';
+        }).join('') +
+        '</div></details>';
+    }
+
+    if (sc.criteres) {
+      h += '<div class="ib violet" style="margin-bottom:10px;font-size:.85rem">' +
+        '<b>Crit\u00e8re\u00a0:</b> ' + sc.criteres + '</div>';
+    }
+
+    if (sc.phrases) {
+      h += '<div style="margin-bottom:10px">' +
+        '<b style="font-size:.84rem;color:var(--bleu)">Phrases cl\u00e9s \u00e0 utiliser\u00a0:</b>' +
+        '<ul style="margin:5px 0 0 16px">' +
+        sc.phrases.map(p => '<li style="font-size:.83rem;margin-bottom:3px">&laquo;\u00a0' + p + '\u00a0&raquo;</li>').join('') +
+        '</ul></div>';
+    }
+
+    // Record + model (model only revealed after enregistrement, or on demand)
+    h +=
+      '<div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:6px">' +
+      '<button class="rbtn" id="rbtn-' + sc.lettre + '" ' +
+      'onclick="toggleRec(\'' + sc.lettre + '\',\'pb-' + sc.lettre + '\')">' +
+      '<span class="rdot"></span> Enregistrer</button>' +
+      '<button class="btn b-gris" onclick="playModel(\'' + sc.lettre + '\')">&#128266; Mod\u00e8le</button>' +
+      '</div>' +
+      '<audio id="pb-' + sc.lettre + '" style="display:none;margin-top:8px;width:100%" controls></audio>' +
+      '<div style="margin-top:9px;font-size:.83rem;color:var(--gris-m)">' +
+      'Ma note auto-\u00e9valu\u00e9e\u00a0: ' +
+      '<input type="number" min="0" max="' + sc.pts + '" id="onote-' + sc.lettre + '" ' +
+      'style="width:50px;border:2px solid var(--gris-b);border-radius:5px;padding:3px 6px;font-size:.9rem" ' +
+      'placeholder="0" onchange="updateOralSc()"> / ' + sc.pts + '</div>';
+
+    d.innerHTML = h;
+    c.appendChild(d);
+  });
+}
+
+const MODELS = {
+  A:"Bonsoir\u00a0! Nous n\u2019avons pas r\u00e9serv\u00e9. Vous avez une table pour deux\u00a0? Parfait. C\u2019est quoi le plat du jour\u00a0? Comme entr\u00e9e, la soupe \u00e0 l\u2019oignon. Et le saumon grill\u00e9. Une carafe d\u2019eau. Je suis allergique aux noix. Le service est compris\u00a0? L\u2019addition s\u2019il vous pla\u00eet\u00a0!",
+  B:"Il est huit heures moins le quart. Je me r\u00e9veille, je me douche et je m\u2019habille. L\u2019h\u00f4pital H muet, le hibou H aspir\u00e9. J\u2019appelle le 15, le SAMU. Je m\u2019habille, tu t\u2019habilles, il s\u2019habille. Au printemps, en \u00e9t\u00e9, en automne, en hiver.",
+  C:"Au secours\u00a0! Il y a eu un accident. J\u2019appelle le 15\u00a0! Boulevard Haussmann, num\u00e9ro 42. Allo le 15\u00a0? Un homme a perdu connaissance. Je reste sur place. D\u2019accord.",
+  D:"Hier matin, je me suis r\u00e9veill\u00e9 \u00e0 sept heures et demie. Je me suis habill\u00e9 rapidement. J\u2019ai bu du caf\u00e9 et mang\u00e9 une tartine. J\u2019ai pris le m\u00e9tro. Le soir, je me suis couch\u00e9 t\u00f4t."
+};
+
+function playModel(l) {
+  const u = new SpeechSynthesisUtterance(MODELS[l]);
+  u.lang = 'fr-FR'; u.rate = 0.82;
+  speechSynthesis.cancel(); speechSynthesis.speak(u);
+}
+
+async function toggleRec(l, pid) {
+  const btn = document.getElementById('rbtn-' + l);
+  if (recrs[l] && recrs[l].state === 'recording') {
+    recrs[l].stop();
+    btn.classList.remove('rec');
+    btn.innerHTML = '<span class="rdot"></span> Enregistrer';
+  } else {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({audio: true});
+      const mime = MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 'audio/ogg';
+      const r = new MediaRecorder(stream, {mimeType: mime});
+      recrs[l] = r; rchks[l] = [];
+      r.ondataavailable = e => { if (e.data.size > 0) rchks[l].push(e.data); };
+      r.onstop = () => {
+        const blob = new Blob(rchks[l], {type: mime});
+        const url  = URL.createObjectURL(blob);
+        const pb   = document.getElementById(pid);
+        pb.src = url; pb.style.display = 'block'; pb.play();
+        stream.getTracks().forEach(t => t.stop());
+      };
+      r.start(100);
+      btn.classList.add('rec');
+      btn.innerHTML = '<span class="rdot"></span> &#9209; Stop';
+    } catch (e) {
+      alert('Microphone non disponible.');
+    }
+  }
+}
+
+function updateOralSc() {
+  let tot = 0;
+  ORAL_DATA.forEach(sc => {
+    const v = parseFloat(document.getElementById('onote-' + sc.lettre)?.value) || 0;
+    tot += Math.max(0, Math.min(sc.pts, v));
+  });
+  SC.oral = Math.min(6, tot);
+  updateTotal();
+}
+
+// ============================================================
+// UTILS
+// ============================================================
+function updateRing(id, tid, p) {
+  const col = p >= 80 ? 'var(--vert)' : p >= 60 ? 'var(--orange)' : 'var(--rouge)';
+  const r = document.getElementById(id);
+  if (r) r.style.background = 'conic-gradient(' + col + ' ' + p + '%,var(--gris-b) ' + p + '%)';
+  const t = document.getElementById(tid);
+  if (t) t.textContent = p + '%';
+}
+
+function updateTotal() {
+  const tot = +(SC.dictee + (SC.co || 0) + (SC.ce || 0) + (SC.oral || 0)).toFixed(1);
+  document.getElementById('pill').textContent = tot + ' / 20';
+}
+
+function renderScore() {
+  const tot  = +(SC.dictee + (SC.co||0) + (SC.ce||0) + (SC.oral||0)).toFixed(1);
+  const ment =
+    tot >= 18 ? 'Tr\u00e8s bien \ud83c\udf89' :
+    tot >= 15 ? 'Bien \ud83d\udc4d' :
+    tot >= 12 ? 'Assez bien' :
+    tot >= 10 ? 'Passable' : 'Insuffisant \ud83d\udcaa';
+
+  const rows = [
+    {l:'1 \u2014 Dict\u00e9e',       v:SC.dictee,  m:4, col:'var(--bleu)'},
+    {l:'2 \u2014 Comp. orale', v:SC.co||0,    m:4, col:'var(--orange)'},
+    {l:'3 \u2014 Comp. \u00e9crite',  v:SC.ce||0,    m:6, col:'var(--vert)'},
+    {l:'4 \u2014 Expr. orale',  v:SC.oral||0,  m:6, col:'var(--rose)'}
+  ];
+
+  document.getElementById('score-cont').innerHTML =
+    rows.map(r => {
+      const p = Math.round(r.v / r.m * 100);
+      return '<div class="rr">' +
+        '<div class="rl">' + r.l + '</div>' +
+        '<div class="pb2"><div class="pf2" style="width:' + p + '%;background:' + r.col + '"></div></div>' +
+        '<div class="rs" style="color:' + r.col + '">' +
+        (typeof r.v === 'number' ? r.v.toFixed(1) : r.v) + ' / ' + r.m +
+        '</div></div>';
+    }).join('') +
+    '<div class="rr tot">' +
+    '<div class="rl">TOTAL</div>' +
+    '<div class="pb2" style="background:rgba(255,255,255,.2)">' +
+    '<div class="pf2" style="width:' + (tot * 5) + '%;background:white"></div></div>' +
+    '<div class="rs">' + tot + ' / 20 \u2014 ' + ment + '</div>' +
+    '</div>' +
+    '<div class="ib bleu" style="margin-top:12px;font-size:.85rem">' +
+    '<b>Mentions (syst\u00e8me fran\u00e7ais)\u00a0:</b><br>' +
+    '18\u201320 = Tr\u00e8s bien &bull; 15\u201317 = Bien &bull; 12\u201314 = Assez bien &bull; ' +
+    '10\u201311 = Passable &bull; &lt;10 = Insuffisant' +
+    '</div>';
+}
+
+// ============================================================
+// INIT
+// ============================================================
+initDpts();
+initCO();
+initCE();
+initOral();
+</script>
+</body>
+</html>
